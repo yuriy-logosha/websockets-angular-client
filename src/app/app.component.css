@@ -1,0 +1,168 @@
+/*.btn-sm {*/
+/*font-size: 0.675rem;*/
+/*}*/
+
+#val {
+  width: 75px;
+  height: auto;
+}
+
+#command {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 25px;
+}
+
+#val {
+  display: none;
+}
+
+#cmd {
+  text-align: right;
+  height: auto;
+}
+
+.addit {
+  display: none;
+}
+
+.stop {
+  border-right-color: #fff;
+}
+
+.tab-content {
+  font-size: 10px;
+}
+
+.command {
+  font-size: 10px;
+  padding-left: 15px;
+}
+
+.incremental {
+  font-size: 10px;
+  text-align: inherit;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  /*height: 34px;*/
+  /*float: right;*/
+  margin-bottom: 0;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  display: none;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 80%;
+  width: 40%;
+  left: 4px;
+  bottom: 6px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input.default:checked + .slider {
+  background-color: #444;
+}
+
+input.primary:checked + .slider {
+  background-color: #2196F3;
+}
+
+input.success:checked + .slider {
+  background-color: #8bc34a;
+}
+
+input.info:checked + .slider {
+  background-color: #3de0f5;
+}
+
+input.warning:checked + .slider {
+  background-color: #FFC107;
+}
+
+input.danger:checked + .slider {
+  background-color: #f44336;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 4px;
+}
+
+.slider.round:before {
+  border-radius: 20%;
+}
+
+.col {
+  padding-right: 0px;
+}
+
+#sendCommand {
+  margin: 0px 10px;
+}
+
+#sendCommandToAll {
+  margin: 0px 10px;
+}
+
+.ui-layout-south {
+  min-height: 90px;
+  font-size: 10px;
+}
+
+.ui-layout-north, .ui-layout-west, .ui-layout-east {
+  padding: 0px !important;
+}
+
+.history {
+  color: #cccccc;
+}
+
+.current {
+  color: red;
+}
+
+.queue {
+  color: #2196F3;
+}
+
+.img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+}

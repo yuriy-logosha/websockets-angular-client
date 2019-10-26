@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  ws: 'ws://localhost.zyxel.com:1300',
+  ws2: 'ws://87.99.81.19:1300',
+  ws3: 'ws://localhost:1300'
+
 };
 
 /*

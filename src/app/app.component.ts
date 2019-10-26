@@ -17,7 +17,6 @@ declare var $: any;
 export class AppComponent implements OnInit {
   title = 'websockets-angular-client';
 
-  // imgUrl: string = 'https://picsum.photos/200/300/?random';
   imgUrl = 'http://localhost.zyxel.com/screen?id=7';
   imageToShow: any;
   isImageLoading: boolean;
@@ -43,7 +42,27 @@ export class AppComponent implements OnInit {
     {name: 'rss-to "rig" iron 10', type: 'incremental'},
     {name: 'rss-to "rig" stone 10', type: 'incremental'},
     {name: 'rss-to "rig" silver 10', type: 'incremental'},
-    {name: '', type: ''}
+    {name: 'rss-to "r i c h" food 10', type: 'incremental'},
+    {name: 'rss-to "r i c h" lumber 10', type: 'incremental'},
+    {name: 'rss-to "r i c h" iron 10', type: 'incremental'},
+    {name: 'rss-to "r i c h" stone 10', type: 'incremental'},
+    {name: 'rss-to "r i c h" silver 10', type: 'incremental'},
+    {name: 'rss-to "k u p" food 10', type: 'incremental'},
+    {name: 'rss-to "k u p" lumber 10', type: 'incremental'},
+    {name: 'rss-to "k u p" iron 10', type: 'incremental'},
+    {name: 'rss-to "k u p" stone 10', type: 'incremental'},
+    {name: 'rss-to "k u p" silver 10', type: 'incremental'},
+    {name: 'rss-to "r o m" food 10', type: 'incremental'},
+    {name: 'rss-to "r o m" lumber 10', type: 'incremental'},
+    {name: 'rss-to "r o m" iron 10', type: 'incremental'},
+    {name: 'rss-to "r o m" stone 10', type: 'incremental'},
+    {name: 'rss-to "r o m" silver 10', type: 'incremental'},
+    {name: 'rss-to "v a r" food 10', type: 'incremental'},
+    {name: 'rss-to "v a r" lumber 10', type: 'incremental'},
+    {name: 'rss-to "v a r" iron 10', type: 'incremental'},
+    {name: 'rss-to "v a r" stone 10', type: 'incremental'},
+    {name: 'rss-to "v a r" silver 10', type: 'incremental'},
+    {name: '', type: 'command'}
   ];
 
   public logs = [];
@@ -102,9 +121,6 @@ export class AppComponent implements OnInit {
       success: ( data ) => {
         this.createImageFromBlob(data);
         this.isImageLoading = false;
-        // if ( console && console.log ) {
-        //   console.log( 'Sample of data:', data.slice( 0, 100 ) );
-        // }
       },
       error: (error) => {
         this.isImageLoading = false;
@@ -112,15 +128,6 @@ export class AppComponent implements OnInit {
         console.log(error);
       }
     });
-    //
-    // this.imageService.getImage(this.imgUrl).subscribe(data => {
-    //   this.createImageFromBlob(data);
-    //   this.isImageLoading = false;
-    // }, error => {
-    //   this.isImageLoading = false;
-    //   this.imageToShow = '';
-    //   console.log(error);
-    // });
   }
 
   reverseArray(arr: any[]) {
@@ -131,22 +138,28 @@ export class AppComponent implements OnInit {
     return newArray;
   }
 
+  _buildMessage(user, msg): String {
+    return 'Send to ' + user + ': ' + JSON.stringify(msg);
+  }
+
   send(): void {
     const uuid = $('#uuid').val();
     if (uuid === '') {
       alert('No user! Please select user.');
     } else {
-      const msg = {type: 'command', uuid, command: $('#cmd').val() + ($('#val').is(':visible') ? (' ' + $('#val').val()) : '')};
-      console.log(msg);
+      const val = $('#val');
+      const msg = {type: 'command', uuid, command: $('#cmd').val() + (val.is(':visible') ? (' ' + val.val()) : '')};
       this.wsService.send(WS.SEND.TYPE, msg);
-      this.addLog('Send to ' + $('#user-name').text() + ':' + msg);
+      this.addLog(this._buildMessage($('#user-name').text(), msg));
     }
   }
 
   sendToAll(): void {
+    const val = $('#val');
     $.each($('#users a'), (idx, btn) => {
-      this.wsService.send(WS.SEND.TYPE, {type: 'command', uuid: btn.id, command: $('#cmd').val() + ($('#val').is(':visible') ? (' ' + $('#val').val()) : '')});
-      console.log(btn.id);
+      const msg = {type: 'command', uuid: btn.id, command: $('#cmd').val() + (val.is(':visible') ? (' ' + val.val()) : '')};
+      this.wsService.send(WS.SEND.TYPE, msg);
+      this.addLog(this._buildMessage(btn.name, msg));
     });
   }
 
@@ -179,7 +192,11 @@ export class AppComponent implements OnInit {
   }
 
   addLog(msg): void {
-    // this.logs.push(msg);
+    const date = new Date(Date.now());
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    this.logs.unshift(hours + ':' + minutes + ':' + seconds + ': ' + msg);
   }
 
   setUpdateInterval(): void {
@@ -194,12 +211,9 @@ export class AppComponent implements OnInit {
 
 
   reload(): void {
-    // console.log(this.wsService.getSettings()['uuid']);
-    // this.wsService.send(WS.SEND.TYPE, {type: 'command', uuid: this.wsService.getSettings()['uuid'], command: 'status'});
     $.each($('#users a'), (idx, btn) => {
-      this.wsService.send(WS.SEND.TYPE, {type: 'command', uuid: btn.id, command: 'status'});
-      console.log(btn.id);
-      // $('#users > a.active').attr('id');$('#'+act).tab('show')
+      let msg = {type: 'command', uuid: btn.id, command: 'status'};
+      this.wsService.send(WS.SEND.TYPE, msg);
     });
   }
 
