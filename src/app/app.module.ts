@@ -9,12 +9,15 @@ import { WebsocketModule } from './websocket';
 import { environment } from '../environments/environment';
 import { ImageService } from './image.service';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    FontAwesomeModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

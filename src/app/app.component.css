@@ -3,7 +3,7 @@
 /*}*/
 
 #val {
-  width: 75px;
+  width: 55px;
   height: auto;
 }
 
@@ -165,4 +165,28 @@ input:checked + .slider:before {
   right: 0;
   width: 50%;
   height: 50%;
+}
+
+/* Style buttons */
+.btn-blue {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+.btn-blue-small {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 2px 3px; /* Some padding */
+  font-size: 10px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.btn-blue:hover {
+  background-color: RoyalBlue;
 }

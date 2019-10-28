@@ -32,3 +32,11 @@ export interface IWsSettings extends IWsMessage {
   uuid: string;
   port: number;
 }
+
+export interface ICommand {
+  name: string;
+  display: string;
+  cmd: object;
+  time: string;
+}
+

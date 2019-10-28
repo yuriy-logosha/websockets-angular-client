@@ -4,7 +4,8 @@ import {WebsocketService} from './websocket';
 import { WS } from './websocket.events';
 import { Observable } from 'rxjs';
 import { ImageService } from './image.service';
-import { IWsUser, IWsMessage } from './websocket/websocket.interfaces';
+import { IWsUser, IWsMessage, ICommand } from './websocket/websocket.interfaces';
+import { faRedo, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 declare var $: any;
 
@@ -16,6 +17,8 @@ declare var $: any;
 
 export class AppComponent implements OnInit {
   title = 'websockets-angular-client';
+  faRedo = faRedo;
+  faPlay = faPlay;
 
   imgUrl = 'http://localhost.zyxel.com/screen?id=7';
   imageToShow: any;
@@ -65,7 +68,7 @@ export class AppComponent implements OnInit {
     {name: '', type: 'command'}
   ];
 
-  public logs = [];
+  public logs: ICommand[] = [];
 
   public messages$: Observable<IWsUser[]>;
 
@@ -138,8 +141,13 @@ export class AppComponent implements OnInit {
     return newArray;
   }
 
-  _buildMessage(user, msg): String {
-    return 'Send to ' + user + ': ' + JSON.stringify(msg);
+  _buildMessage(user: string, msg: object): ICommand {
+    const date = new Date(Date.now());
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    return {cmd: msg, time: `${hours}:${minutes}:${seconds}`, display: `Send to ${user}: ${JSON.stringify(msg)}`, name: `${user}`};
   }
 
   send(): void {
@@ -152,6 +160,11 @@ export class AppComponent implements OnInit {
       this.wsService.send(WS.SEND.TYPE, msg);
       this.addLog(this._buildMessage($('#user-name').text(), msg));
     }
+  }
+
+  send2(msg: ICommand): void {
+    this.wsService.send(WS.SEND.TYPE, msg.cmd);
+    this.addLog(this._buildMessage(msg.name, msg.cmd));
   }
 
   sendToAll(): void {
@@ -191,12 +204,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  addLog(msg): void {
-    const date = new Date(Date.now());
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    this.logs.unshift(hours + ':' + minutes + ':' + seconds + ': ' + msg);
+  addLog(logMsg: ICommand): void {
+    this.logs.unshift(logMsg);
   }
 
   setUpdateInterval(): void {
@@ -210,7 +219,12 @@ export class AppComponent implements OnInit {
   }
 
 
-  reload(): void {
+  reload(userId: string): void {
+    if (userId) {
+      let msg = {type: 'command', uuid: userId, command: 'status'};
+      this.wsService.send(WS.SEND.TYPE, msg);
+      return;
+    }
     $.each($('#users a'), (idx, btn) => {
       let msg = {type: 'command', uuid: btn.id, command: 'status'};
       this.wsService.send(WS.SEND.TYPE, msg);
