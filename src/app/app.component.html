@@ -68,7 +68,7 @@
          name="{{user.name}}"
          href="#list-{{user.name}}"
          (click)="selectUser(user.uuid, user.name)">
-        <button (click)="reload(user.uuid)" class="btn-blue"><fa-icon [icon]="faRedo"></fa-icon></button>
+        <button (click)="reloadUser(user.uuid)" class="btn-blue"><fa-icon [icon]="faRedo"></fa-icon></button>
         <span class="badge badge-primary badge-pill m-1" *ngIf='user.status !== undefined && user.status.queue !== undefined'>{{user.status.queue.length}}</span>
         {{user.name}}
       </a>

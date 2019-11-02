@@ -218,13 +218,12 @@ export class AppComponent implements OnInit {
     }
   }
 
+  reloadUser(userId: string): void {
+    let msg = {type: 'command', uuid: userId, command: 'status'};
+    this.wsService.send(WS.SEND.TYPE, msg);
+  }
 
-  reload(userId: string): void {
-    if (userId) {
-      let msg = {type: 'command', uuid: userId, command: 'status'};
-      this.wsService.send(WS.SEND.TYPE, msg);
-      return;
-    }
+  reload(): void {
     $.each($('#users a'), (idx, btn) => {
       let msg = {type: 'command', uuid: btn.id, command: 'status'};
       this.wsService.send(WS.SEND.TYPE, msg);
