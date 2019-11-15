@@ -181,8 +181,8 @@ input:checked + .slider:before {
   background-color: DodgerBlue; /* Blue background */
   border: none; /* Remove borders */
   color: white; /* White text */
-  padding: 2px 3px; /* Some padding */
-  font-size: 10px; /* Set a font size */
+  padding: 2px 4px; /* Some padding */
+  font-size: 8px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
 }
 

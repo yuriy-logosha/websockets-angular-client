@@ -47,7 +47,7 @@
 
   <div class="ui-layout-south">
     <div class="list-group">
-      <div *ngFor = "let msg of this.logs"><button (click)="send2(msg)" class="btn-blue-small"><fa-icon [icon]="faPlay"></fa-icon></button>{{msg.time}} {{msg.display}}</div>
+      <div *ngFor = "let msg of this.logs"><button (click)="send2(msg)" class="btn btn-blue-small"><fa-icon [icon]="faPlay"></fa-icon></button> {{msg.time}} {{msg.display}}</div>
     </div>
   </div>
 
@@ -68,7 +68,7 @@
          name="{{user.name}}"
          href="#list-{{user.name}}"
          (click)="selectUser(user.uuid, user.name)">
-        <button (click)="reloadUser(user.uuid)" class="btn-blue"><fa-icon [icon]="faRedo"></fa-icon></button>
+        <button (click)="reloadUser(user.uuid)" class="btn btn-secondary btn-sm"><fa-icon [icon]="faRedo"></fa-icon></button>
         <span class="badge badge-primary badge-pill m-1" *ngIf='user.status !== undefined && user.status.queue !== undefined'>{{user.status.queue.length}}</span>
         {{user.name}}
       </a>
