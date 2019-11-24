@@ -1,18 +1,17 @@
 <div class="ui-layout-container" style="zoom: 1; overflow: hidden; width: auto; height: auto; margin: 0px; position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px;">
   <div class="ui-layout-center">
-    <img class="img" [src]="imageToShow"
+    <!-- <img class="img" [src]="imageToShow"
          alt="Loading..."
          *ngIf="!isImageLoading; else noImageFound">
     <ng-template #noImageFound>
       <div>Loading...</div>
-    </ng-template>
+    </ng-template> -->
     <div class="tab-content">
-        <div class="tab-pane fade" id="list-{{user.name}}" role="tabpanel"
-             *ngFor="let user of this.messages">
+        <div class="tab-pane fade" id="list-{{user.name}}" role="tabpanel" *ngFor="let user of this.users">
           <div *ngIf='user.status !== undefined && user.status.queue !== undefined'>
             <div class="queue" *ngFor="let item of user.status.queue">{{generateTime(item.time)}} {{item.argument.join(' ')}}</div>
           </div>
-          <div class="current"  *ngIf='user.status !== undefined && user.status.current !== undefined'>{{generateTime(user.status.current.time)}} {{user.status.current.args.join(' ')}}</div>
+          <!-- <div class="current"  *ngIf='user.status !== undefined && user.status.current !== undefined'>{{generateTime(user.status.current.time)}} {{user.status.current.args.join(' ')}}</div> -->
           <div *ngIf='user.status !== undefined && user.status.history !== undefined'>
             <div class="history" *ngFor="let history of user.status.history">{{generateTime(history.time)}} {{history.args.join(' ')}}</div>
           </div>
@@ -47,7 +46,7 @@
 
   <div class="ui-layout-south">
     <div class="list-group">
-      <div *ngFor = "let msg of this.logs"><button (click)="send2(msg)" class="btn btn-blue-small"><fa-icon [icon]="faPlay"></fa-icon></button> {{msg.time}} {{msg.display}}</div>
+      <div *ngFor = "let msg of this.logs"><button (click)="repeatExecution(msg)" class="btn btn-blue-small"><fa-icon [icon]="faPlay"></fa-icon></button> {{msg.time}} {{msg.display}} {{msg.status}}</div>
     </div>
   </div>
 
@@ -63,7 +62,7 @@
         data-toggle="list"
          role="tab"
 
-         *ngFor="let user of this.messages"
+         *ngFor="let user of this.users"
          id="{{user.uuid}}"
          name="{{user.name}}"
          href="#list-{{user.name}}"

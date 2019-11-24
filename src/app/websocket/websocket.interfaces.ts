@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { SplitInterpolation } from '@angular/compiler';
 
 export interface IWebsocketService {
     status: Observable<boolean>;
@@ -17,11 +18,23 @@ export interface IWsMessage {
     type: string;
 }
 
+export interface IWsUsers {
+  users: IWsUser[];
+}
+
 export interface IWsUser {
   name: string;
   uuid: string;
   status: any;
   raw_status: string;
+}
+
+export interface IWsResult {
+  id: number;
+  result: string;
+  status: string;
+  from: string;
+  to: string;
 }
 
 export interface IWsUsers extends IWsMessage {
@@ -33,10 +46,18 @@ export interface IWsSettings extends IWsMessage {
   port: number;
 }
 
-export interface ICommand {
+export interface ILog {
   name: string;
   display: string;
-  cmd: object;
+  cmd: ICommand;
   time: string;
+  result: string;
+  status: string;
+}
+
+export interface ICommand extends IWsMessage {
+  id: number;
+  to: string;
+  command: string;
 }
 
