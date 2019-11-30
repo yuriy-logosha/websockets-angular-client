@@ -52,7 +52,7 @@
 
   <div class="ui-layout-east">
     <div class="list-group">
-      <button *ngFor="let cmd of commands" class='btn btn-outline-secondary {{cmd.type}}' (click)="setCmd(cmd.name, cmd.type)">{{cmd.name}}</button>
+      <button *ngFor="let cmd of commands" class='btn btn-outline-secondary' (click)="setCmd(cmd.command, cmd.type)">{{cmd.command}}</button>
     </div>
   </div>
 

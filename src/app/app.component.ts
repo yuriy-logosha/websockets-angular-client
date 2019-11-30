@@ -24,47 +24,7 @@ export class AppComponent implements OnInit {
   imageToShow: any;
   isImageLoading: boolean;
 
-  commands = [
-    {name: 'restart-thread', type: 'command'},
-    {name: 'clean-queue', type: 'command'},
-    {name: 'refresh', type: 'command'},
-    {name: 'help-clan', type: 'command'},
-    {name: 'reload-data', type: 'command'},
-    {name: 'prize', type: 'command'},
-    {name: 'install', type: 'command'},
-    {name: 'myerrors-check', type: 'command'},
-    {name: 'restartserver', type: 'command'},
-    {name: 'restartlauncher', type: 'command'},
-    {name: 'exercises 1', type: 'command'},
-    {name: 'exercises 2', type: 'command'},
-    {name: 'exercises 3', type: 'command'},
-    {name: 'rss-to "rig" food 10', type: 'incremental'},
-    {name: 'rss-to "rig" lumber 10', type: 'incremental'},
-    {name: 'rss-to "rig" iron 10', type: 'incremental'},
-    {name: 'rss-to "rig" stone 10', type: 'incremental'},
-    {name: 'rss-to "rig" silver 10', type: 'incremental'},
-    {name: 'rss-to "r i c h" food 10', type: 'incremental'},
-    {name: 'rss-to "r i c h" lumber 10', type: 'incremental'},
-    {name: 'rss-to "r i c h" iron 10', type: 'incremental'},
-    {name: 'rss-to "r i c h" stone 10', type: 'incremental'},
-    {name: 'rss-to "r i c h" silver 10', type: 'incremental'},
-    {name: 'rss-to "k u p" food 10', type: 'incremental'},
-    {name: 'rss-to "k u p" lumber 10', type: 'incremental'},
-    {name: 'rss-to "k u p" iron 10', type: 'incremental'},
-    {name: 'rss-to "k u p" stone 10', type: 'incremental'},
-    {name: 'rss-to "k u p" silver 10', type: 'incremental'},
-    {name: 'rss-to "r o m" food 10', type: 'incremental'},
-    {name: 'rss-to "r o m" lumber 10', type: 'incremental'},
-    {name: 'rss-to "r o m" iron 10', type: 'incremental'},
-    {name: 'rss-to "r o m" stone 10', type: 'incremental'},
-    {name: 'rss-to "r o m" silver 10', type: 'incremental'},
-    {name: 'rss-to "v a r" food 10', type: 'incremental'},
-    {name: 'rss-to "v a r" lumber 10', type: 'incremental'},
-    {name: 'rss-to "v a r" iron 10', type: 'incremental'},
-    {name: 'rss-to "v a r" stone 10', type: 'incremental'},
-    {name: 'rss-to "v a r" silver 10', type: 'incremental'},
-    {name: '', type: 'command'}
-  ];
+  commands = [];
 
   public logs: ILog[] = [];
 
@@ -176,6 +136,9 @@ export class AppComponent implements OnInit {
       const command = this._buildCommand(Date.now(), uuid, $('#cmd').val() + (val.is(':visible') ? (' ' + val.val()) : ''));
       this.wsService.send(WS.SEND.TYPE, command);
       this.addLog(this._buildMessage($('#user-name').text(), command));
+      if (this.commands.findIndex(it => command.command === it.command) === -1) {
+        this.commands.unshift(command);
+      }
     }
   }
 
