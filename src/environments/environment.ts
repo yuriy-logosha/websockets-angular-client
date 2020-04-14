@@ -4,10 +4,7 @@
 
 export const environment = {
   production: false,
-  ws: 'ws://localhost.zyxel.com:1300',
-  ws2: 'ws://87.99.81.19:1300',
-  ws3: 'ws://localhost:1300'
-
+   ws: 'wss://localhost.zyxel.com:1300'
 };
 
 /*
